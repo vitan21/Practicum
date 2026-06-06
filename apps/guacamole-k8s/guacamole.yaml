@@ -20,10 +20,13 @@ spec:
           ports:
             - containerPort: 8080
           env:
+            
             - name: GUACD_HOSTNAME
               value: guacd
             - name: POSTGRES_HOSTNAME
               value: postgres
+            - name: POSTGRESQL_PORT
+              value: "5432"
             - name: POSTGRES_DATABASE
               value: guacamole
             - name: POSTGRES_USER
@@ -43,3 +46,4 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
+
