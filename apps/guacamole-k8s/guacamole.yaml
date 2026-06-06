@@ -1,0 +1,45 @@
+# guacamole/guacamole.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: guacamole
+  template:
+    metadata:
+      labels:
+        app: guacamole
+    spec:
+      containers:
+        - name: guacamole
+          image: guacamole/guacamole:1.5.5
+          ports:
+            - containerPort: 8080
+          env:
+            - name: GUACD_HOSTNAME
+              value: guacd
+            - name: POSTGRES_HOSTNAME
+              value: postgres
+            - name: POSTGRES_DATABASE
+              value: guacamole
+            - name: POSTGRES_USER
+              value: guac
+            - name: POSTGRES_PASSWORD
+              value: guacpass
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guacamole
+  namespace: guacamole
+spec:
+  selector:
+    app: guacamole
+  ports:
+    - port: 8080
+      targetPort: 8080

@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: guac-db-secret
+  namespace: guacamole
+type: Opaque
+stringData:
+  POSTGRES_DB: guacamole
+  POSTGRES_USER: guac
+  POSTGRES_PASSWORD: guacpass
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: guacamole
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          envFrom:
+            - secretRef:
+                name: guac-db-secret
+          ports:
+            - containerPort: 5432
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: guacamole
+spec:
+  selector:
+    app: postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
