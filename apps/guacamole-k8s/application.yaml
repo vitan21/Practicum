@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/vitan21/Practicum.git
     targetRevision: main
-    path: guacamole
+    path: apps/guacamole-k8s
   destination:
     server: https://kubernetes.default.svc
     namespace: guacamole
