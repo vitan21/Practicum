@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: guacamole-initdb
+  namespace: guacamole
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: initdb
+          image: postgres:15
+          env:
+            - name: PGPASSWORD
+              value: guacpass
+          command: ["/bin/bash", "-c"]
+          args:
+            - |
+              psql -h postgres -U guac -d guacamole -f /sql/initdb.sql
+          volumeMounts:
+            - name: sql
+              mountPath: /sql/initdb.sql
+              subPath: initdb.sql
+      volumes:
+        - name: sql
+          configMap:
+            name: guacamole-initdb
