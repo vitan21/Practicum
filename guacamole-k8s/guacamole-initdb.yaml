@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: guacamole-initdb
+  namespace: guacamole
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: init
+        image: guacamole/guacamole:1.6.0
+        command: ["/opt/guacamole/bin/initdb.sh", "--postgresql"]
+        env:
+        - name: PGHOST
+          value: postgres
+        - name: PGDATABASE
+          value: guacamole_db
+        - name: PGUSER
+          value: guacamole_user
+        - name: PGPASSWORD
+          value: guacamole_password
