@@ -30,7 +30,7 @@ spec:
               value: "5432"
             - name: POSTGRESQL_DATABASE
               value: "guacamole"
-            - name: POSTGRESQL_USERNAME
+            - name: POSTGRESQL_USER
               value: "guac"
             - name: POSTGRESQL_PASSWORD
               value: "guacpass"
