@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: guacamole-config
+  namespace: guacamole
+data:
+  guacamole.properties: |
+    guacd-hostname: guacd
+    guacd-port: 4822
+
+    postgresql-hostname: postgres
+    postgresql-port: 5432
+    postgresql-database: guacamole
+    postgresql-username: guac
+    postgresql-password: guacpass
