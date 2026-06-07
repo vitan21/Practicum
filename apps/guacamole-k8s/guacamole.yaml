@@ -23,6 +23,7 @@ spec:
           volumeMounts:
             - name: guacamole-config-volume
               mountPath: /home/guacamole/.guacamole
+              subPath: guacamole.properties
               readOnly: true
       volumes:
         - name: guacamole-config-volume
